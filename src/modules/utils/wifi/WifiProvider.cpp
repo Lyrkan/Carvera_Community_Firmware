@@ -7,6 +7,7 @@
 
 #include "WifiProvider.h"
 
+#include "../webhooks/Webhooks.h"
 #include "brd_cfg.h"
 #include "M8266HostIf.h"
 
@@ -125,6 +126,9 @@ void WifiProvider::receive_wifi_data() {
 	while (true)
 	{
 		received = M8266WIFI_SPI_RecvData(WifiData, WIFI_DATA_MAX_SIZE, WIFI_DATA_TIMEOUT_MS, &link_no, &status);
+		if (link_no == WEBHOOK_TCP_LINK_NO) {
+			continue;
+		}
 		if (link_no == udp_link_no) {
 			return;
 		}

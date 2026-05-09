@@ -19,6 +19,7 @@
 #include "modules/tools/drillingcycles/Drillingcycles.h"
 #include "modules/tools/atc/ATCHandler.h"
 #include "modules/utils/wifi/WifiProvider.h"
+#include "modules/utils/webhooks/Webhooks.h"
 #include "modules/robot/Conveyor.h"
 #include "modules/utils/simpleshell/SimpleShell.h"
 #include "modules/utils/configurator/Configurator.h"
@@ -166,6 +167,9 @@ void init() {
 
     // Wifi Provider
     kernel->add_module( new(AHB) WifiProvider);
+
+    // HTTP webhooks
+    kernel->add_module(new(AHB) Webhooks());
 
     // these modules can be completely disabled in the Makefile by adding to EXCLUDE_MODULES
     #ifndef NO_TOOLS_SWITCH
